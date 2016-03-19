@@ -12,6 +12,7 @@ module API
     # GET /texts/1
     # GET /texts/1.json
     def show
+      render json: @text
     end
 
     # GET /texts/new
