@@ -6,6 +6,7 @@ module API
     # GET /texts.json
     def index
       @texts = Text.all
+      render json: @texts
     end
 
     # GET /texts/1
