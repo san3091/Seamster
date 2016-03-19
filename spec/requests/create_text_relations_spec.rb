@@ -20,4 +20,22 @@ RSpec.describe "CreateTextRelations", type: :request do
       expect(@text.title).to eq(text[:title])
     end
   end
+
+  describe "POST /texts" do
+
+    it "creates a text" do
+      @text = {
+        title: "Speak",
+        body: "This is a cool book -Rogah"
+      }
+
+      post api_texts_url, @text.to_json, { "Accept" => Mime::JSON, "Content-Type" => Mime::JSON.to_s }
+      expect(response).to have_http_status(201)
+
+      text = JSON.parse(response.body, symbolize_names: true)
+      expect(@text[:title]).to eq(text[:title])
+
+      expect(response.location).to eq api_text_url(text[:id])
+    end
+  end
 end

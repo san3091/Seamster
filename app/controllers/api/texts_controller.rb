@@ -31,10 +31,8 @@ module API
 
       respond_to do |format|
         if @text.save
-          format.html { redirect_to @text, notice: 'Text was successfully created.' }
-          format.json { render :show, status: :created, location: @text }
+          format.json { render :show, status: :created, location: api_text_url(@text) }
         else
-          format.html { render :new }
           format.json { render json: @text.errors, status: :unprocessable_entity }
         end
       end
@@ -45,10 +43,8 @@ module API
     def update
       respond_to do |format|
         if @text.update(text_params)
-          format.html { redirect_to @text, notice: 'Text was successfully updated.' }
           format.json { render :show, status: :ok, location: @text }
         else
-          format.html { render :edit }
           format.json { render json: @text.errors, status: :unprocessable_entity }
         end
       end
@@ -59,7 +55,6 @@ module API
     def destroy
       @text.destroy
       respond_to do |format|
-        format.html { redirect_to texts_url, notice: 'Text was successfully destroyed.' }
         format.json { head :no_content }
       end
     end
