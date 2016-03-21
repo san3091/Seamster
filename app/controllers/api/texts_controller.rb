@@ -30,7 +30,7 @@ module API
       # Build bi-directional relation between texts
       @text.related_texts << @related_text
       @related_text.related_texts << @text
-      render json: @text.related_texts
+      render json: @text.related_texts, status: 201
     end
 
     # POST /texts
