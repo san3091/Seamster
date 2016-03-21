@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   namespace :api, constraints: { subdomain: 'api' }, path: '/' do
     resources :texts
+    post "texts/:id" => "texts#create_relation"
   end
   
   # The priority is based upon order of creation: first created -> highest priority.

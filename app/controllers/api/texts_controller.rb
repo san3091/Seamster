@@ -1,6 +1,7 @@
 module API
   class TextsController < ApplicationController
     before_action :set_text, only: [:show, :edit, :update, :destroy]
+    before_action :set_related_text, only: [:link]
 
     # GET /texts
     # GET /texts.json
@@ -22,6 +23,13 @@ module API
 
     # GET /texts/1/edit
     def edit
+    end
+
+    # POST /texts/1
+    def create_relation 
+      # Build bi-directional relation between texts
+      @text.related_texts << @related_text
+      @related_text.related_texts << @text
     end
 
     # POST /texts
@@ -60,9 +68,14 @@ module API
     end
 
     private
+
       # Use callbacks to share common setup or constraints between actions.
       def set_text
         @text = Text.find(params[:id])
+      end
+
+      def set_related_text
+        @related_text = Text.find(params[:related_text_id])
       end
 
       # Never trust parameters from the scary internet, only allow the white list through.

@@ -22,13 +22,12 @@ RSpec.describe "CreateTextRelations", type: :request do
   end
 
   describe "POST /texts" do
-
-    it "creates a text" do
-      @text = {
+    @text = {
         title: "Speak",
         body: "This is a cool book -Rogah"
       }
 
+    it "creates a text" do
       post api_texts_url, @text.to_json, { "Accept" => Mime::JSON, "Content-Type" => Mime::JSON.to_s }
       expect(response).to have_http_status(201)
 
@@ -36,6 +35,10 @@ RSpec.describe "CreateTextRelations", type: :request do
       expect(@text[:title]).to eq(text[:title])
 
       expect(response.location).to eq api_text_url(text[:id])
+    end
+
+    it "creates two way relation between texts" do
+      post
     end
   end
 end
