@@ -1,7 +1,7 @@
 module API
   class TextsController < ApplicationController
-    before_action :set_text, only: [:show, :edit, :update, :destroy]
-    before_action :set_related_text, only: [:link]
+    before_action :set_text, only: [:show, :edit, :update, :destroy, :create_relation]
+    before_action :set_related_text, only: [:create_relation]
 
     # GET /texts
     # GET /texts.json
@@ -30,6 +30,7 @@ module API
       # Build bi-directional relation between texts
       @text.related_texts << @related_text
       @related_text.related_texts << @text
+      render json: @text.related_texts
     end
 
     # POST /texts
